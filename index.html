@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('background.jpg');
+            background-size: cover;
+        }
+        header, nav, section, footer {
+            padding: 20px;
+            text-align: center;
+            color: white;
+            background-color: #333;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 10px;
+        }
+        #movies {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .movie {
+            margin: 10px;
+            cursor: pointer;
+        }
+        .movie img {
+            width: 200px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Movie Website</h1>
+    </header>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#movies">Movies</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <section id="home">
+        <h2>Welcome to our Movie Website</h2>
+        <p>Explore the latest movies and discover your favorites.</p>
+    </section>
+    <section id="movies">
+        <h2>Featured Movies</h2>
+        <div class="movie" onclick="playTrailer('trailer1.mp4')">
+            <img src="movie1.jpg" alt="Movie 1">
+            <h3>Movie 1</h3>
+            <p>Description of Movie 1.</p>
+        </div>
+        <div class="movie" onclick="playTrailer('trailer2.mp4')">
+            <img src="movie2.jpg" alt="Movie 2">
+            <h3>Movie 2</h3>
+            <p>Description of Movie 2.</p>
+        </div>
+    </section>
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+        <?php
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $name = $_POST["name"];
+                $email = $_POST["email"];
+
+                // Process the form data (you can add your own logic here)
+
+                // For demonstration purposes, let's just print the submitted data
+                echo "<p>Submitted Data:</p>";
+                echo "<p>Name: " . $name . "</p>";
+                echo "<p>Email: " . $email . "</p>";
+            }
+        ?>
+    </section>
+    <footer>
+        <p>&copy; 2023 Movie Website</p>
+    </footer>
+
+    <script>
+        function playTrailer(trailerUrl) {
+            var video = document.getElementById("trailerVideo");
+            var source = document.getElementById("videoSource");
+            source.src = trailerUrl;
+            video.load();
+            video.play();
+        }
+    </script>
+    <video id="trailerVideo" width="640" height="360" controls>
+        <source id="videoSource" src="" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</body>
+</html>
